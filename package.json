@@ -1,0 +1,52 @@
+{
+  "name":"express",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node .",
+    "dev": "node .",
+    "build": "babel --ignore __tests__ --out-dir dist src",
+    "deploy": "./sync && git push heroku master",
+    "local": "heroku local web",
+    "logs": "heroku logs",
+    "logs:follow": "npm run logs -- --tail",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "Marko Vujanic",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "detect-port": "^1.3.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
+    "loglevel": "^1.6.1",
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.3.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "nodemon": "^1.18.10"
+  }
+}
