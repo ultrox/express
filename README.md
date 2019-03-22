@@ -16,3 +16,12 @@ It uses babel to transpile code in runtime with `babel-register` so I'm writing
 ES6 this is setup in `dev.js`.
 
 
+## Features
+
+- auto refresh on file changes
+- detect if port is in use and +1 
+- ES6 via babel
+- loggin requests with morgan
+- smart loggin instead of console.log via loglevel
+- cors is handled
+- node-fetch so fetching is 'almost' the same as in front
