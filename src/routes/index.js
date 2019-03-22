@@ -35,6 +35,8 @@ function setupRoutes(app) {
   const pkgRouter = express.Router()
   setupPackageRoutes(pkgRouter)
   app.use('/package', pkgRouter)
+  // catch all route
+  app.use('*', (req, res) => res.send("Hoopsy! I can't find it!"))
 }
 
 export default setupRoutes
