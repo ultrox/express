@@ -1,20 +1,42 @@
 import express from 'express'
+import pkginfo from '@ma.vu/pkginfo'
+import fetch from 'node-fetch'
 
-async function getPosts(req, res) {
-  return res.send('fi')
+// controlers
+async function getPkgInfo(req, res) {
+  const options = [
+    'homepage',
+    'repository',
+    'latest',
+    'name',
+    'description',
+    'version',
+    'author',
+    'license',
+    'devDependencies',
+    'dependencies',
+  ]
+  const name = req.params.name
+
+  if (name) {
+    const result = await pkginfo(name, options)
+    return res.json(result)
+  }
+  return res.status(404).send()
 }
 
-function setupPostRoutes(router) {
-  router.get('/', getPosts)
-  router.get('/marko', (req, res) => {
-    res.send('marko')
-  })
+// routes
+function setupPackageRoutes(router) {
+  router.get('/', (req, res) => res.send('Hello World!'))
+  router.get('/info/:name', getPkgInfo)
 }
 
 function setupRoutes(app) {
-  const postRouter = express.Router()
-  setupPostRoutes(postRouter)
-  app.use('/api/posts', postRouter)
+  const pkgRouter = express.Router()
+  setupPackageRoutes(pkgRouter)
+  app.use('/package', pkgRouter)
+  // catch all route
+  app.use('*', (req, res) => res.send("Hoopsy! I can't find it!"))
 }
 
 export default setupRoutes
